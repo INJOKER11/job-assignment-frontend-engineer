@@ -8,9 +8,18 @@ import ReactDOM from "react-dom";
 import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 
+import {QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AuthProvider from "./context/AuthProvider";
+
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

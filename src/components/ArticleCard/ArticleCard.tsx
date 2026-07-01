@@ -1,28 +1,35 @@
 import styles from "./ArticleCard.module.css";
 import Avatar from "../Avatar/Avatar";
-import Button from "../Button/Button";
+import { Article } from "../../shared/types/articles";
+import { Link } from "react-router-dom";
+import { formatDate } from "../../utils/date";
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
-export default function ArticleCard() {
+type ArticleCardProps = {
+  article: Article
+}
+
+
+export default function ArticleCard(props: ArticleCardProps) {
+  const {article} = props;
 
   return (
     <div className={styles.articlePreview}>
       <div className={styles.articleMeta}>
-        <Avatar img={"http://i.imgur.com/Qr71crq.jpg"} />
+        <Avatar username={article.author.username} img={article.author.image} />
         <div className={styles.info}>
-          <a href="/public#/profile/ericsimmons" className={styles.author}>
-            Eric Simons
-          </a>
-          <span className={styles.date}>January 20th</span>
+          <Link to={`/profile/${article.author.username}`} className={styles.author}>
+            {article.author.username}
+          </Link>
+          <span className={styles.date}>{formatDate(article.createdAt)}</span>
         </div>
-        <Button>
-          <i className={`ion-heart ${styles.ionHeart}`} /> 29
-        </Button>
+        <FavoriteButton slug={article.slug} favorited={article.favorited} favoritesCount={article.favoritesCount}/>
       </div>
-      <a href="/public#/how-to-build-webapps-that-scale" className={styles.previewLink}>
-        <h1>How to build webapps that scale</h1>
-        <p>This is the description for the post.</p>
+      <Link to={article.slug} className={styles.previewLink}>
+        <h1>{article.title}</h1>
+        <p>{article.description}</p>
         <span>Read more...</span>
-      </a>
+      </Link>
     </div>
   );
 

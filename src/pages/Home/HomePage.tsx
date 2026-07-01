@@ -1,10 +1,19 @@
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
+import { useQuery } from "@tanstack/react-query";
+import { articlesApi } from "../../shared/api/articlesApi";
 
 export default function HomePage() {
+
+  const {data: articlesData} = useQuery({
+    queryKey: ["articles"],
+    queryFn: () => articlesApi.getList(),
+  });
+
+  console.log(articlesData);
+
   return (
     <>
       <div className="home-page">
-
         <div className="banner">
           <div className="container banner-inner">
             <h1 className="logo-font">Conduit</h1>
@@ -22,37 +31,16 @@ export default function HomePage() {
                       Your Feed
                     </a>
                   </li>
-                  <li className="nav-item" >
+                  <li className="nav-item">
                     <a className="nav-link active" href="">
                       Global Feed
                     </a>
                   </li>
                 </ul>
               </div>
-
-              <ArticleCard />
-              <ArticleCard />
-              {/*<div className="article-preview">*/}
-              {/*  <div className="article-meta">*/}
-              {/*    <a href="/public#/profile/albertpai">*/}
-              {/*      <img src="http://i.imgur.com/N4VcUeJ.jpg" />*/}
-              {/*    </a>*/}
-              {/*    <div className="info">*/}
-              {/*      <a href="/public#/profile/albertpai" className="author">*/}
-              {/*        Albert Pai*/}
-              {/*      </a>*/}
-              {/*      <span className="date">January 20th</span>*/}
-              {/*    </div>*/}
-              {/*    <button className="btn btn-outline-primary btn-sm pull-xs-right">*/}
-              {/*      <i className="ion-heart" /> 32*/}
-              {/*    </button>*/}
-              {/*  </div>*/}
-              {/*  <a href="/public#/the-song-you-wont-ever-stop-singing" className="preview-link">*/}
-              {/*    <h1>The song you won&lsquo;t ever stop singing. No matter how hard you try.</h1>*/}
-              {/*    <p>This is the description for the post.</p>*/}
-              {/*    <span>Read more...</span>*/}
-              {/*  </a>*/}
-              {/*</div>*/}
+              {articlesData?.articles.map(a => (
+                <ArticleCard key={a.slug} article={a} />
+              ))}
             </div>
 
             <div className="col-md-3">

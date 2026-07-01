@@ -1,21 +1,54 @@
+import { useHistory, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { profileApi } from "../../shared/api/profileApi";
+import Avatar from "../../components/Avatar/Avatar";
+import { useEffect, useState } from "react";
+import { articlesApi } from "../../shared/api/articlesApi";
+import ArticleCard from "../../components/ArticleCard/ArticleCard";
+import FollowButton from "../../components/FollowButton/FollowButton";
+
 export default function ProfilePage() {
+  const [showFavorite, setShowFavorite] = useState(false);
+  const { username } = useParams<{username: string}>();
+  const history = useHistory();
+
+  const {data: profileData, isLoading, isError} = useQuery({
+    queryKey: ["profile", username],
+    queryFn: () => profileApi.getRecord(username),
+  });
+
+  const { data: articlesData } = useQuery({
+    queryKey: ["articles", showFavorite ? "favorite" : "byUser", username],
+    queryFn: () => articlesApi.getList(showFavorite ? { favorited: username } : { author: username }),
+    enabled: !!profileData,
+  });
+  useEffect(() => {
+    if (isError) {
+      history.push("/");
+    }
+  }, [isError, history]);
+
+  if(isLoading) {
+    return <div>Loading...</div>
+  }
+
+
+  if (!profileData) {
+    return null;
+  }
+
+
   return (
     <>
       <div className="profile-page">
         <div className="user-info">
           <div className="container">
             <div className="row">
-              <div className="col-xs-12 col-md-10 offset-md-1">
-                <img src="http://i.imgur.com/Qr71crq.jpg" className="user-img" />
-                <h4>Eric Simons</h4>
-                <p>
-                  Cofounder @GoThinkster, lived in Aol&lsquo;s HQ for a few months, kinda looks like Peeta from the
-                  Hunger Games
-                </p>
-                <button className="btn btn-sm btn-outline-secondary action-btn">
-                  <i className="ion-plus-round" />
-                  &nbsp; Follow Eric Simons
-                </button>
+              <div className="col-xs-12 col-md-10 offset-md-1 ">
+                <Avatar username={profileData.profile.username} size={"lg"} img={profileData.profile.image} />
+                <h4>{profileData.profile.username}</h4>
+                <p>{profileData.profile.bio}</p>
+                <FollowButton profile={profileData.profile} />
               </div>
             </div>
           </div>
@@ -27,65 +60,23 @@ export default function ProfilePage() {
               <div className="articles-toggle">
                 <ul className="nav nav-pills outline-active">
                   <li className="nav-item">
-                    <a className="nav-link active" href="">
+                    <a className={`nav-link ${!showFavorite && "active"}`} onClick={() => setShowFavorite(false)}>
                       My Articles
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="">
+                    <a className={`nav-link ${showFavorite && "active"}`} onClick={() => setShowFavorite(true)}>
                       Favorited Articles
                     </a>
                   </li>
                 </ul>
               </div>
 
-              <div className="article-preview">
-                <div className="article-meta">
-                  <a href="/public#/profile/ericsimmons">
-                    <img src="http://i.imgur.com/Qr71crq.jpg" />
-                  </a>
-                  <div className="info">
-                    <a href="/public#/profile/ericsimmons" className="author">
-                      Eric Simons
-                    </a>
-                    <span className="date">January 20th</span>
-                  </div>
-                  <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                    <i className="ion-heart" /> 29
-                  </button>
-                </div>
-                <a href="/public#/how-to-build-webapps-that-scale" className="preview-link">
-                  <h1>How to build webapps that scale</h1>
-                  <p>This is the description for the post.</p>
-                  <span>Read more...</span>
-                </a>
-              </div>
-
-              <div className="article-preview">
-                <div className="article-meta">
-                  <a href="/public#/profile/albertpai">
-                    <img src="http://i.imgur.com/N4VcUeJ.jpg" />
-                  </a>
-                  <div className="info">
-                    <a href="/public#/profile/albertpai" className="author">
-                      Albert Pai
-                    </a>
-                    <span className="date">January 20th</span>
-                  </div>
-                  <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                    <i className="ion-heart" /> 32
-                  </button>
-                </div>
-                <a href="/public#/the-song-you-wont-ever-stop-singing" className="preview-link">
-                  <h1>The song you won&lsquo;t ever stop singing. No matter how hard you try.</h1>
-                  <p>This is the description for the post.</p>
-                  <span>Read more...</span>
-                  <ul className="tag-list">
-                    <li className="tag-default tag-pill tag-outline">Music</li>
-                    <li className="tag-default tag-pill tag-outline">Song</li>
-                  </ul>
-                </a>
-              </div>
+              {!articlesData?.articlesCount ? (
+                <div>No articles are here... yet.</div>
+              ) : (
+                articlesData.articles.map(a => <ArticleCard article={a} key={a.slug} />)
+              )}
             </div>
           </div>
         </div>

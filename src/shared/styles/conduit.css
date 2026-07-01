@@ -30,6 +30,7 @@ body {
 }
 .nav-item {}
 .nav-link {
+    cursor: pointer;
     display: flex;
     align-items: center;
     transition: color .15s ease, background-color .15s ease;
@@ -203,4 +204,69 @@ footer {
 .bottom-article-meta {
     display: flex;
     justify-content: center;
+    margin-bottom: 30px;
+}
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text-xs-center {
+    font-size: 40px;
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+.auth-page > .page {
+    display: flex;
+    max-width: 540px;
+    width: 100%;
+}
+.auth-page > .page > .row {
+    width: 100%;
+}
+.auth-page > .page > .row > .col-md-6 {
+    width: 100%;
+}
+.auth-page > .page > .row > .col-md-6 > form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.form-button {
+    margin-left: auto;
+}
+
+
+.col-xs-12 {
+    width: 100%;
+}
+.col-xs-12.col-md-10.offset-md-1 {
+
+    max-width: 920px;
+    width: 100%;
+    margin: 0 auto;
+}
+.user-info > .container > .row > .col-xs-12.col-md-10.offset-md-1 {
+    position: relative;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.follow-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.col-xs-12.col-md-10.offset-md-1 h4,
+.col-xs-12.col-md-10.offset-md-1 p {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.avatar-container {
+    display: flex;
+    gap: 10px;
 }

@@ -1,4 +1,13 @@
+import { useAuth } from "../../hooks/useAuth";
+import { useHistory } from "react-router-dom";
+
 export default function SettingsPage() {
+  const {logout} = useAuth();
+  const history = useHistory();
+  const handleLogout = () => {
+    logout();
+    history.push("/");
+  }
   return (
     <>
       <div className="settings-page">
@@ -28,7 +37,7 @@ export default function SettingsPage() {
                 </fieldset>
               </form>
               <hr />
-              <a className="btn btn-outline-danger" href="/public#/logout">
+              <a onClick={handleLogout} className="btn btn-outline-danger">
                 Or click here to logout.
               </a>
             </div>

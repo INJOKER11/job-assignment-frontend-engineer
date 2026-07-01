@@ -3,7 +3,9 @@
     padding: 24px 0;
     border-top: 1px solid var(--border);
 }
-
+.articlePreview:hover {
+    background: #00000003;
+}
 .articleMeta {
     display: flex;
     align-items: center;

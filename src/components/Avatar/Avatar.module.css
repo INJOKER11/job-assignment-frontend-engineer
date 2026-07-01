@@ -1,12 +1,28 @@
-
-
 .avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 30px;
+    border-radius: 50%;
+    object-fit: cover;
 }
-.avatarLink {
+
+.avatarSm {
     width: 32px;
     height: 32px;
-    cursor: pointer;
+}
+
+.avatarLg {
+    width: 100px;
+    height: 100px;
+}
+
+.avatarLink {
+    display: inline-block;
+}
+
+.avatarLink:has(.avatarSm) {
+    width: 32px;
+    height: 32px;
+}
+
+.avatarLink:has(.avatarLg) {
+    width: 100px;
+    height: 100px;
 }

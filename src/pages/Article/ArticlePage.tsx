@@ -1,32 +1,81 @@
 import Avatar from "../../components/Avatar/Avatar";
 import Button from "../../components/Button/Button";
+import { Link, useHistory, useParams } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { articlesApi } from "../../shared/api/articlesApi";
+import { useEffect } from "react";
+import { Article } from "../../shared/types/articles";
+import { useAuth } from "../../hooks/useAuth";
+import FollowButton from "../../components/FollowButton/FollowButton";
 
 export default function ArticlePage() {
+  const { slug } = useParams<{ slug: string }>();
+  const history = useHistory();
+  const queryClient = useQueryClient();
+  const {isAuthenticated} = useAuth();
+
+  const {
+    data: articleData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["article", slug],
+    queryFn: () => articlesApi.getRecord(slug),
+  });
+
+  // todo: hook
+  const favoriteMutation = useMutation({
+    mutationFn: (article: Article) =>
+      !articleData?.article.favorited
+        ? articlesApi.addToFavorite(article.slug)
+        : articlesApi.removeFromFavorite(article.slug),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["articles"]);
+      queryClient.invalidateQueries(["article", slug]);
+    },
+  });
+
+  useEffect(() => {
+    if (isError) {
+      history.push("/");
+    }
+  }, [isError, history]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!articleData) {
+    return null;
+  }
+
+  const handleFavoriteButton = () => {
+    if (!isAuthenticated) history.push("/login");
+    favoriteMutation.mutate(articleData.article);
+  };
+
+
   return (
     <>
       <div className="article-page">
         <div className="banner">
           <div className="container article-banner-inner">
-            <h1>How to build webapps that scale</h1>
+            <h1>{articleData.article.title}</h1>
 
             <div className="article-meta">
-              <a href="/public#/profile/ericsimmons">
-                <Avatar img={"http://i.imgur.com/Qr71crq.jpg"} />
-              </a>
+              <Avatar username={articleData.article.author.username} img={articleData.article.author.image} />
               <div className="info">
-                <a href="/public#/profile/ericsimmons" className="author">
-                  Eric Simons
+                <a href={`profile/${articleData.article.author.username}`} className="author">
+                  {articleData.article.author.username}
                 </a>
                 <span className="date">January 20th</span>
               </div>
-              <Button skin={"secondary"} className="btn btn-sm btn-outline-secondary">
-                <i className="ion-plus-round" />
-                &nbsp; Follow Eric Simons <span className="counter">(10)</span>
-              </Button>
+              {/*todo: find where i can get follows count*/}
+              <FollowButton profile={articleData.article.author} />
               &nbsp;&nbsp;
-              <Button className="btn btn-sm btn-outline-primary">
+              <Button className="btn btn-sm btn-outline-primary" onClick={handleFavoriteButton}>
                 <i className="ion-heart" />
-                &nbsp; Favorite Post <span className="counter">(29)</span>
+                &nbsp; Favorite Post <span className="counter">{articleData.article.favoritesCount}</span>
               </Button>
             </div>
           </div>
@@ -40,32 +89,26 @@ export default function ArticlePage() {
               <p>It&lsquo;s a great solution for learning how other frameworks work.</p>
             </div>
           </div>
-
           <hr />
 
           <div className="article-actions">
             <div className="article-meta bottom-article-meta">
-              <a href="/public#/profile/ericsimmons">
-                <Avatar img="http://i.imgur.com/Qr71crq.jpg" />
-              </a>
+              <Avatar username={articleData.article.author.username} img={articleData.article.author.image} />
               <div className="info">
-                <a href="/public#/profile/ericsimmons" className="author">
-                  Eric Simons
-                </a>
+                <Link to={`profile/${articleData.article.author.username}`} className="author">
+                  {articleData.article.author.username}
+                </Link>
                 <span className="date">January 20th</span>
               </div>
-              <Button skin={"secondary"} className="btn btn-sm btn-outline-secondary">
-                <i className="ion-plus-round" />
-                &nbsp; Follow Eric Simons
-              </Button>
-              &nbsp;
-              <Button className="btn btn-sm btn-outline-primary">
+              {/*todo: find where i can get follows count*/}
+              <FollowButton profile={articleData.article.author} />
+              &nbsp;&nbsp;
+              <Button className="btn btn-sm btn-outline-primary" onClick={handleFavoriteButton}>
                 <i className="ion-heart" />
-                &nbsp; Favorite Post <span className="counter">(29)</span>
+                &nbsp; Favorite Post <span className="counter">{articleData.article.favoritesCount}</span>
               </Button>
             </div>
           </div>
-
           <div className="row">
             <div className="col-xs-12 col-md-8 offset-md-2">
               <form className="card comment-form">

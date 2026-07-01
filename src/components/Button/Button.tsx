@@ -6,10 +6,11 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
   size?: "sm" | "lg";
   skin?: "primary" | "secondary";
+  variant?: "outlined" | "filled";
 }
 
 export default function Button(props: ButtonProps) {
-  const { children, size = "sm", className, skin = "primary", ...rest } = props;
+  const { children, size = "sm", variant = "outlined", className, skin = "primary", ...rest } = props;
   // btn btn-outline-primary btn-sm pull-xs-right
   return (
     <button {...rest} className={clsx(
