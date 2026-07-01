@@ -1,3 +1,19 @@
 :root {
-    
+    --brand: #33aa44;
+    --brand-hover: #2b8e3a;
+    --brand-active: #237630;
+    --brand-dark: #237630;
+    --brand-light: #7dd88b;
+    --danger: #b85c5c;
+    --danger-light: #d7a3a3;
+    --secondary: #ccc;
+    --secondary-hover: #b3b3b3;
+    --secondary-border: #adadad;
+    --text: #373a3c;
+    --text-muted: #999;
+    --text-light: #bbb;
+    --text-lighter: #aaa;
+    --text-disabled: #818a91;
+    --border: #eee;
+    --bg-light: #f3f3f3;
 }

@@ -1,15 +1,17 @@
+import Avatar from "../../components/Avatar/Avatar";
+import Button from "../../components/Button/Button";
+
 export default function ArticlePage() {
   return (
     <>
-
       <div className="article-page">
         <div className="banner">
-          <div className="container">
+          <div className="container article-banner-inner">
             <h1>How to build webapps that scale</h1>
 
             <div className="article-meta">
               <a href="/public#/profile/ericsimmons">
-                <img src="http://i.imgur.com/Qr71crq.jpg" />
+                <Avatar img={"http://i.imgur.com/Qr71crq.jpg"} />
               </a>
               <div className="info">
                 <a href="/public#/profile/ericsimmons" className="author">
@@ -17,15 +19,15 @@ export default function ArticlePage() {
                 </a>
                 <span className="date">January 20th</span>
               </div>
-              <button className="btn btn-sm btn-outline-secondary">
+              <Button skin={"secondary"} className="btn btn-sm btn-outline-secondary">
                 <i className="ion-plus-round" />
                 &nbsp; Follow Eric Simons <span className="counter">(10)</span>
-              </button>
+              </Button>
               &nbsp;&nbsp;
-              <button className="btn btn-sm btn-outline-primary">
+              <Button className="btn btn-sm btn-outline-primary">
                 <i className="ion-heart" />
                 &nbsp; Favorite Post <span className="counter">(29)</span>
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -42,9 +44,9 @@ export default function ArticlePage() {
           <hr />
 
           <div className="article-actions">
-            <div className="article-meta">
+            <div className="article-meta bottom-article-meta">
               <a href="/public#/profile/ericsimmons">
-                <img src="http://i.imgur.com/Qr71crq.jpg" />
+                <Avatar img="http://i.imgur.com/Qr71crq.jpg" />
               </a>
               <div className="info">
                 <a href="/public#/profile/ericsimmons" className="author">
@@ -52,15 +54,15 @@ export default function ArticlePage() {
                 </a>
                 <span className="date">January 20th</span>
               </div>
-              <button className="btn btn-sm btn-outline-secondary">
+              <Button skin={"secondary"} className="btn btn-sm btn-outline-secondary">
                 <i className="ion-plus-round" />
                 &nbsp; Follow Eric Simons
-              </button>
+              </Button>
               &nbsp;
-              <button className="btn btn-sm btn-outline-primary">
+              <Button className="btn btn-sm btn-outline-primary">
                 <i className="ion-heart" />
                 &nbsp; Favorite Post <span className="counter">(29)</span>
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -115,7 +117,6 @@ export default function ArticlePage() {
           </div>
         </div>
       </div>
-
     </>
   );
 }

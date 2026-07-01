@@ -1,7 +1,7 @@
 
 .articlePreview {
     padding: 24px 0;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
 }
 
 .articleMeta {
@@ -19,16 +19,16 @@
 }
 
 .author {
-    color: #33aa44;
+    color: var(--brand);
     font-size: 16px;
     &:hover {
         text-decoration: underline;
-        color: #237630;
+        color: var(--brand-active);
         transition: 100ms;
     }
 }
 .date {
-    color: #bbb;
+    color: var(--text-light);
     font-size: 12px;
 }
 .previewLink {
@@ -37,21 +37,21 @@
 .previewLink > h1 {
     font-size: 24px;
     margin-bottom: 3px;
-    color: #373A3C;
+    color: var(--text);
     font-weight: 600;
 }
 .previewLink:hover > h1 {
-    color: #237630;
+    color: var(--brand-active);
     transition: color ease 200ms;
 }
 .previewLink > p {
     margin-bottom: 15px;
     font-size: 16px;
-    color: #999999;
+    color: var(--text-muted);
     font-weight: 300;
 }
 .previewLink > span {
-    color: #bbbbbb;
+    color: var(--text-light);
     font-size: 13px;
     font-weight: 300;
 }

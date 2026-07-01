@@ -1,16 +1,37 @@
-
-
-.btnOutlinePrimary {
-    color: #33aa44;
-    border: 1px solid #33aa44;
+.button {
     border-radius: 4px;
-    padding: 4px 8px;
-    background: transparent;
+    transition: .2s ease-in-out;
     cursor: pointer;
 }
-.btnOutlinePrimary:hover {
-    color: white;
-    background: #33aa44;
-    transition: ease-in-out 200ms;
+
+.btnSm {
+    padding: 4px 8px;
 }
-.btnSm {}
+
+.btnLg {
+    padding: 8px 16px;
+}
+
+.btnPrimary {
+    color: var(--brand);
+    border: 1px solid var(--brand);
+    background: transparent;
+}
+
+.btnPrimary:hover {
+    color: #fff;
+    background: var(--brand);
+}
+
+.btnSecondary {
+    opacity: .8;
+    color: var(--secondary);
+    background: transparent;
+    border: 1px solid var(--secondary);
+}
+
+.btnSecondary:hover {
+    background: var(--secondary);
+    color: white;
+
+}
