@@ -9,7 +9,6 @@ export default function HomePage() {
     queryFn: () => articlesApi.getList(),
   });
 
-  console.log(articlesData);
 
   return (
     <>

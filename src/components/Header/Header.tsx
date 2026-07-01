@@ -4,7 +4,7 @@ import Avatar from "../Avatar/Avatar";
 
 export default function Header () {
   const {isAuthenticated, user} = useAuth();
-  console.log(user);
+
   return (
     <nav className="navbar navbar-light">
       <div className="container header-inner">
