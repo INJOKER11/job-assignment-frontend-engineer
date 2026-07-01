@@ -1,7 +1,11 @@
+import "./shared/styles/variables.css"
+import "./shared/styles/conduit.css"
+import "./shared/styles/reset.css"
+
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./App";
+import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
