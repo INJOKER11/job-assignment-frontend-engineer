@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import Header from "../shared/ui/Header/Header";
-import Footer from "../shared/ui/Footer/Footer";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 
 
 export default function  Layout({children}: {children: ReactNode}) {

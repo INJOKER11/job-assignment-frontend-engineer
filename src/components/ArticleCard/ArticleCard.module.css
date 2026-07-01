@@ -1,0 +1,57 @@
+
+.articlePreview {
+    padding: 24px 0;
+    border-top: 1px solid #eee;
+}
+
+.articleMeta {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+}
+.articleMeta > button {
+    margin-left: auto;
+}
+
+.author {
+    color: #33aa44;
+    font-size: 16px;
+    &:hover {
+        text-decoration: underline;
+        color: #237630;
+        transition: 100ms;
+    }
+}
+.date {
+    color: #bbb;
+    font-size: 12px;
+}
+.previewLink {
+
+}
+.previewLink > h1 {
+    font-size: 24px;
+    margin-bottom: 3px;
+    color: #373A3C;
+    font-weight: 600;
+}
+.previewLink:hover > h1 {
+    color: #237630;
+    transition: color ease 200ms;
+}
+.previewLink > p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #999999;
+    font-weight: 300;
+}
+.previewLink > span {
+    color: #bbbbbb;
+    font-size: 13px;
+    font-weight: 300;
+}
