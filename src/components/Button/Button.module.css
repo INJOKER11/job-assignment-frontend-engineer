@@ -1,0 +1,16 @@
+
+
+.btnOutlinePrimary {
+    color: #33aa44;
+    border: 1px solid #33aa44;
+    border-radius: 4px;
+    padding: 4px 8px;
+    background: transparent;
+    cursor: pointer;
+}
+.btnOutlinePrimary:hover {
+    color: white;
+    background: #33aa44;
+    transition: ease-in-out 200ms;
+}
+.btnSm {}

@@ -55,3 +55,9 @@
     font-size: 13px;
     font-weight: 300;
 }
+
+.ionHeart {
+    color: inherit;
+    width: 15px;
+    height: 15px;
+}

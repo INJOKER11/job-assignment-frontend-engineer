@@ -1,5 +1,6 @@
 import styles from "./ArticleCard.module.css";
 import Avatar from "../Avatar/Avatar";
+import Button from "../Button/Button";
 
 export default function ArticleCard() {
 
@@ -13,9 +14,9 @@ export default function ArticleCard() {
           </a>
           <span className={styles.date}>January 20th</span>
         </div>
-        <button className="btn btn-outline-primary btn-sm pull-xs-right">
-          <i className="ion-heart" /> 29
-        </button>
+        <Button>
+          <i className={`ion-heart ${styles.ionHeart}`} /> 29
+        </Button>
       </div>
       <a href="/public#/how-to-build-webapps-that-scale" className={styles.previewLink}>
         <h1>How to build webapps that scale</h1>
